@@ -1,7 +1,7 @@
 package com.rn;
 
 import android.app.Application;
-
+import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;

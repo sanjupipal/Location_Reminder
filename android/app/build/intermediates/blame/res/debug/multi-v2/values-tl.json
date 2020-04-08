@@ -4,23 +4,6 @@
             "outputFile": "/home/sanju/rn/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-tl/values-tl.xml",
             "map": [
                 {
-                    "source": "/home/sanju/.gradle/caches/transforms-1/files-1.1/jetified-play-services-basement-16.0.1.aar/aa82ea97d8655d83609edcec359c01ba/res/values-tl/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "247",
-                        "endColumns": "204",
-                        "endOffsets": "451"
-                    },
-                    "to": {
-                        "startLines": "37",
-                        "startColumns": "4",
-                        "startOffsets": "4062",
-                        "endColumns": "204",
-                        "endOffsets": "4262"
-                    }
-                },
-                {
                     "source": "/home/sanju/.gradle/caches/transforms-1/files-1.1/core-1.1.0.aar/02064b87a6ba038363ea381bc8a0d090/res/values-tl/values-tl.xml",
                     "from": {
                         "startLines": "2",
@@ -55,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "/home/sanju/.gradle/caches/transforms-1/files-1.1/jetified-play-services-base-16.0.1.aar/ec86279269717dfd73b9f5abba439b50/res/values-tl/values.xml",
+                    "source": "/home/sanju/.gradle/caches/transforms-1/files-1.1/play-services-base-17.0.0.aar/441ca5bfa09a002778aebcd3360c1d54/res/values-tl/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -69,6 +52,23 @@
                         "startOffsets": "2845,2954,3162,3302,3413,3630,3768,3920,4267,4505,4614,4823,4963,5184,5393,5491,5587",
                         "endColumns": "108,207,139,110,216,137,151,141,237,108,208,139,220,208,97,95,109",
                         "endOffsets": "2949,3157,3297,3408,3625,3763,3915,4057,4500,4609,4818,4958,5179,5388,5486,5582,5692"
+                    }
+                },
+                {
+                    "source": "/home/sanju/.gradle/caches/transforms-1/files-1.1/jetified-play-services-basement-17.0.0.aar/e35c22a1d3c2ec04ca5330f74b5c31c8/res/values-tl/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "247",
+                        "endColumns": "204",
+                        "endOffsets": "451"
+                    },
+                    "to": {
+                        "startLines": "37",
+                        "startColumns": "4",
+                        "startOffsets": "4062",
+                        "endColumns": "204",
+                        "endOffsets": "4262"
                     }
                 }
             ]

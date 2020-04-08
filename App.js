@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, Component} from 'react';
 import {StyleSheet, Text , View, FlatList,Alert,TouchableWithoutFeedback,Keyboard} from 'react-native';
 import Header from './components/header';
 import TodoItem from './components/toDoItem';
@@ -75,3 +75,4 @@ const style = StyleSheet.create(
       marginTop: 20,      
     }
   });
+
