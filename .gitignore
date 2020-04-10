@@ -1,0 +1,4 @@
+android/app/build
+android/.gradle
+node_modules/
+package-lock.json
