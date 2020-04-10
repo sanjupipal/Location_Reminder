@@ -8,7 +8,7 @@ import {
     Button,
     TextInput,
     Keyboard,
-    Platform
+    Platform,
 } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
@@ -100,13 +100,10 @@ export default class CreateTask extends Component {
       });
     }
   
-    render() {
-      return (
-        <View
-          
-        >
-          <TextInput
-            style={styles.textInput}
+  render() {
+    return (
+      <View>
+          <TextInput style={styles.textInput}
             onChangeText={this.changeTextHandler}
             // onSubmitEditing={this.addTask}
             value={this.state.text}
@@ -114,29 +111,32 @@ export default class CreateTask extends Component {
             returnKeyType="done"
             returnKeyLabel="done"
           />
-        <View style={{flexDirection:'row', flexWrap:'wrap'}}>
-            <Text style={styles.text}>Schedule</Text>
+          <Text style={{fontSize:29,paddingLeft:20,fontStyle:'italic'}}>Schedule</Text>
+          <View style={{paddingTop:10}}>
             <Text style={styles.inlineText} onPress={this.showDatepicker}>{this.state.schedule.date}</Text>
             <Text style={styles.inlineText} onPress={()=>this.showTimepicker('start')}>{this.state.schedule.startTime}</Text>
             <Text style={styles.inlineText} onPress={()=>this.showTimepicker('end')}>{this.state.schedule.endTime}</Text>
-        </View>
-        <Button  title="Submit" onPress={this.addTask} />
-        <Button  title="Cancel" onPress={()=> this.props.navigation.navigate('Tasks')} />
-        {this.state.show && (
-            <DateTimePicker
-            testID="dateTimePicker"
-            timeZoneOffsetInMinutes={0}
-            value={this.state.pickerDate}
-            mode={this.state.mode}
-            is24Hour={true}
-            display="default"
-            onChange={this.onChange}
-            />
-        )}
-        </View>
-      );
-    }
+          </View>
+          <View style={styles.Button}>
+           
+            <Button  title="Cancel" onPress={()=> this.props.navigation.navigate('Tasks')} />
+            <Button  title="Submit" onPress={this.addTask} />
+            {this.state.show && (
+                <DateTimePicker
+                testID="dateTimePicker"
+                timeZoneOffsetInMinutes={0}
+                value={this.state.pickerDate}
+                mode={this.state.mode}
+                is24Hour={true}
+                display="default"
+                onChange={this.onChange}
+                />
+            )}
+          </View>
+      </View>
+    );
   }
+}
 
   let Tasks = {
     convertToArrayOfObject(tasks, callback) {
@@ -166,7 +166,6 @@ export default class CreateTask extends Component {
 
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
       justifyContent: "center",
       alignItems: "center",
       backgroundColor: "#F5FCFF",
@@ -191,20 +190,32 @@ export default class CreateTask extends Component {
       justifyContent: "space-between"
     },
     textInput: {
-      height: 40,
+      marginTop:50,
+      height: 70,
       paddingRight: 10,
-      paddingLeft: 10,
+      paddingLeft: 20,
       borderColor: "gray",
       borderWidth: isAndroid ? 0 : 1,
-      width: "100%"
+      width: "100%",
+      fontSize:18,
     },
     inlineText: {
-        fontSize: 12,
+        fontSize:20,
         fontWeight: "bold",
         paddingRight: 0,
-        paddingLeft: 50,
+        paddingLeft:30,
+        paddingTop:20,
         borderColor: "gray",
         borderWidth: isAndroid ? 0 : 1,
+      },
+      Button:{
+        paddingTop:240,
+        paddingLeft:90,
+        paddingRight:90,
+        justifyContent:'space-between',
+        flexWrap:'wrap',
+        flexDirection:'row',
+        
       }
   });
   

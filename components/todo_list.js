@@ -8,9 +8,10 @@ import {
     Button,
     TextInput,
     Keyboard,
-    Platform
+    Platform,TouchableOpacity
 } from "react-native";
-  
+import { Entypo } from '@expo/vector-icons';
+
   const isAndroid = Platform.OS == "android";
   const viewPadding = 10;
 export default class TodoList extends Component {
@@ -52,9 +53,8 @@ export default class TodoList extends Component {
     }
     render() {
       return (
-        <View
-          style={[styles.container, { paddingBottom: this.state.viewPadding }]}
-        >
+        <View style={{flex:1}}>
+        <View style={{marginTop:20,flex:1}}>
           <FlatList
             style={styles.list}
             data={this.state.tasks}
@@ -69,7 +69,14 @@ export default class TodoList extends Component {
                 <View style={styles.hr} />
               </View>}
             />
-            <Button  title="Create" onPress={()=>this.props.navigation.navigate('Create')} />
+        </View>
+        <View style={styles.Button}>
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate('Create')}>
+        <View>  
+            <Entypo name="squared-plus" size={70} color="green" />
+        </View>            
+        </TouchableOpacity>
+        </View>
         </View>
       );
     }
@@ -132,6 +139,12 @@ export default class TodoList extends Component {
       borderColor: "gray",
       borderWidth: isAndroid ? 0 : 1,
       width: "100%"
+    },
+    Button:{
+      flex:0,
+      marginLeft:20,
+      flexDirection:'row-reverse',
+      alignSelf:'flex-end'
     }
   });
   
