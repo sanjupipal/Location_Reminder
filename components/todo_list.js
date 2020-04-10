@@ -31,8 +31,8 @@ export default class TodoList extends Component {
         () => Tasks.save(this.state.tasks)
       );
     };
-  
     componentDidMount() {
+      console.log('todolist mounting');
       Keyboard.addListener(
         isAndroid ? "keyboardDidShow" : "keyboardWillShow",
         e => this.setState({ viewPadding: e.endCoordinates.height + viewPadding })
@@ -42,8 +42,9 @@ export default class TodoList extends Component {
         isAndroid ? "keyboardDidHide" : "keyboardWillHide",
         () => this.setState({ viewPadding: viewPadding })
       );
-  
-      Tasks.all(tasks => this.setState({ tasks: tasks || [] }));
+      this.props.navigation.addListener('focus', () => {
+        Tasks.all(tasks => this.setState({ tasks: tasks || [] }));
+      });
     }
   
     onCreate = () => {
@@ -60,17 +61,8 @@ export default class TodoList extends Component {
             renderItem={({ item, index }) =>
               <View>
                 <View style={styles.listItemCont}>
-                  <Text>
+                  <Text style={styles.listItem} onPress={()=>this.props.navigation.navigate('Detail', {...item})}>
                     {item.text}
-                  </Text>
-                  <Text>
-                    {item.schedule.date}
-                  </Text>
-                  <Text>
-                    {item.schedule.startTime}
-                  </Text>
-                  <Text>
-                    {item.schedule.endTime}
                   </Text>
                   <Button title="X" onPress={() => this.deleteTask(index)} />
                 </View>
@@ -93,14 +85,17 @@ export default class TodoList extends Component {
       return tasks.map(task => task.text).join("||");
     },
     all(callback) {
-      AsyncStorage.setItem("TASKS", null);
-      return callback([]);
       return AsyncStorage.getItem("TASKS", (err, tasks) =>
-        this.convertToArrayOfObject(tasks, callback)
-      );
+      {
+        // AsyncStorage.setItem("TASKS", '');
+        console.log("tasks: ", tasks);
+        tasks = tasks ? JSON.parse(tasks) : [];  
+        return callback(tasks);
+        // this.convertToArrayOfObject(tasks, callback)
+      });
     },
     save(tasks) {
-      AsyncStorage.setItem("TASKS", this.convertToStringWithSeparators(tasks));
+      AsyncStorage.setItem("TASKS", JSON.stringify(tasks));
     }
   };
 

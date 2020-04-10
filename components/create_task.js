@@ -15,7 +15,7 @@ import moment from 'moment';
 // import uuid from 'react-native-uuid';
 
   const isAndroid = Platform.OS == "android";
-  const viewPadding = 10;
+  const viewPadding = 360;
 export default class CreateTask extends Component {
     resetSchedule(){
         return {
@@ -66,27 +66,25 @@ export default class CreateTask extends Component {
       this.setState({ text: text });
     };
   
-    addTask = () => {
-        let notEmpty = this.state.text.trim().length > 0;
-        if (notEmpty) {
-            this.setState(
-            prevState => {
-                let { tasks, text, schedule } = prevState;
-                return {
-                    tasks: tasks.concat({ key: tasks.length, text: text, schedule: schedule }),
-                    text: "",
-                    schedule: this.resetSchedule() 
-                };
-            },
-            () => Tasks.save(this.state.tasks)
-            );
-        }
+    addTask = () =>{
+      console.log('before saving: ', this.state.tasks);
+      let notEmpty = this.state.text.trim().length > 0;
+      if (notEmpty) {
+        const tasks = this.state.tasks;
+        tasks.push({
+          key: this.state.tasks.length, text: this.state.text, schedule: this.state.schedule
+        });  
+        this.setState({tasks});
+        Tasks.save(this.state.tasks);
+        this.props.navigation.navigate('Tasks');
+      }
     };
     
     cancel = () => {
 
     }
     componentDidMount() {
+      console.log('mounting');
       Keyboard.addListener(
         isAndroid ? "keyboardDidShow" : "keyboardWillShow",
         e => this.setState({ viewPadding: e.endCoordinates.height + viewPadding })
@@ -97,7 +95,9 @@ export default class CreateTask extends Component {
         () => this.setState({ viewPadding: viewPadding })
       );
   
-      Tasks.all(tasks => this.setState({ tasks: tasks || [] }));
+      this.props.navigation.addListener('focus', () => {
+        Tasks.all(tasks => this.setState({ tasks: tasks || [] }));
+      });
     }
   
     render() {
@@ -145,15 +145,22 @@ export default class CreateTask extends Component {
       );
     },
     convertToStringWithSeparators(tasks) {
+
       return tasks.map(task => task.text).join("||");
     },
     all(callback) {
-      return AsyncStorage.getItem("TASKS", (err, tasks) =>
+      return AsyncStorage.getItem("TASKS", (err, tasks) =>{
         this.convertToArrayOfObject(tasks, callback)
-      );
+      //  console.log("dasdas", tasks);
+       tasks = tasks ? JSON.parse(tasks) : [];  
+       return callback(tasks);
+       // this.convertToArrayOfObject(tasks, callback)
+     
+      });
     },
     save(tasks) {
-      AsyncStorage.setItem("TASKS", this.convertToStringWithSeparators(tasks));
+      console.log('saving: ', tasks);
+      AsyncStorage.setItem("TASKS", JSON.stringify(tasks));
     }
   };
 
