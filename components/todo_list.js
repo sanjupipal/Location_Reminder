@@ -11,6 +11,7 @@ import {
     Platform,TouchableOpacity
 } from "react-native";
 import { Entypo,MaterialCommunityIcons } from '@expo/vector-icons';
+import PushNotification from 'react-native-push-notification';
 
   const isAndroid = Platform.OS == "android";
   const viewPadding = 10;
@@ -33,6 +34,12 @@ export default class TodoList extends Component {
       );
     };
     componentDidMount() {
+
+      PushNotification.configure({
+        onNotification: function(notification) {
+          console.log("NOTIFICATION:", notification);
+        },
+      });
       console.log('todolist mounting');
       Keyboard.addListener(
         isAndroid ? "keyboardDidShow" : "keyboardWillShow",

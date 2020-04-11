@@ -13,9 +13,10 @@ import {
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 // import uuid from 'react-native-uuid';
+import PushNotification from 'react-native-push-notification';
 
-  const isAndroid = Platform.OS == "android";
-  const viewPadding = 360;
+const isAndroid = Platform.OS == "android";
+const viewPadding = 360;
 export default class CreateTask extends Component {
     resetSchedule(){
         return {
@@ -31,7 +32,7 @@ export default class CreateTask extends Component {
       show: false,
       pickerDate: moment().toDate(),
       timePicker: null,
-      schedule: {date: moment(new Date()).format('MM-DD-YYYY'),
+      schedule: {date: moment(new Date()).format('YYYY-MM-DD'),
       startTime: moment().format('HH:mm'),
       endTime: moment().format('HH:mm')}
 
@@ -77,9 +78,21 @@ export default class CreateTask extends Component {
         this.setState({tasks});
         Tasks.save(this.state.tasks);
         this.props.navigation.navigate('Tasks');
+        this.scheduleNotification();
       }
     };
     
+    scheduleNotification(){
+      const time = this.state.schedule.startTime.split(':');
+      const hour = +time[0];
+      const mins = +time[1];
+      const scheduleTime = moment(this.state.schedule.date).add(hour, 'hour').add(mins, 'minutes').toDate();
+      PushNotification.localNotificationSchedule({
+        title: 'Task Notification',
+        message: this.state.text,
+        date: scheduleTime 
+      });
+    }
     cancel = () => {
 
     }
