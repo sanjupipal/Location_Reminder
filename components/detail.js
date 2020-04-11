@@ -10,6 +10,7 @@ import {
     Keyboard,
     Platform
 } from "react-native";
+import {MaterialIcons } from '@expo/vector-icons';
 
 const isAndroid = Platform.OS == "android";
 const viewPadding = 80;
@@ -30,12 +31,19 @@ export default class Detail extends Component {
   
     render() {
       return (
-        <View style={{flexDirection:'row', flexWrap:'wrap'}}>
-            <Text style={styles.text}>{this.state.text}</Text>
-            {/* <Text style={styles.text}>Schedule</Text> */}
-            <Text style={styles.inlineText} onPress={this.showDatepicker}>{this.state.schedule.date}</Text>
-            <Text style={styles.inlineText} onPress={()=>this.showTimepicker('start')}>{this.state.schedule.startTime}</Text>
-            <Text style={styles.inlineText} onPress={()=>this.showTimepicker('end')}>{this.state.schedule.endTime}</Text>
+        <View style={styles.container}>
+            <Text style={styles.text}>  
+                {this.state.text}
+                </Text>            
+            <Text style={styles.inlineText} >
+               <MaterialIcons name="date-range" size={60} /> {this.state.schedule.date}
+                </Text>                
+            <Text style={styles.inlineText} >
+            <MaterialIcons name="update" size={60} />{this.state.schedule.startTime}
+                </Text>
+            <Text style={styles.inlineText} >
+            <MaterialIcons name="update" size={60} /> {this.state.schedule.endTime}
+                </Text>
         </View>
       );
     }
@@ -44,43 +52,18 @@ export default class Detail extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
         backgroundColor: "#F5FCFF",
         padding: viewPadding,
-        paddingTop: 20
+        paddingTop: 20,
+        flexDirection:'column',
     },
-    list: {
-        width: "100%"
+    text:{
+        flex:3,
+        fontSize:25
     },
-    listItem: {
-        paddingTop: 2,
-        paddingBottom: 2,
-        fontSize: 18
-    },
-    hr: {
-        height: 1,
-        backgroundColor: "gray"
-    },
-    listItemCont: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between"
-    },
-    textInput: {
-        height: 40,
-        paddingRight: 10,
-        paddingLeft: 10,
-        borderColor: "gray",
-        borderWidth: isAndroid ? 0 : 1,
-        width: "100%"
-    },
-    inlineText: {
-        fontSize: 12,
-        fontWeight: "bold",
-        paddingRight: 0,
-        paddingLeft: 50,
-        borderColor: "gray",
-        borderWidth: isAndroid ? 0 : 1,
+    inlineText:{
+        flex:1,
+        fontSize:25
     }
+    
 });

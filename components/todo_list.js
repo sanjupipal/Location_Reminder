@@ -10,7 +10,7 @@ import {
     Keyboard,
     Platform,TouchableOpacity
 } from "react-native";
-import { Entypo } from '@expo/vector-icons';
+import { Entypo,MaterialCommunityIcons } from '@expo/vector-icons';
 
   const isAndroid = Platform.OS == "android";
   const viewPadding = 10;
@@ -53,30 +53,25 @@ export default class TodoList extends Component {
     }
     render() {
       return (
-        <View style={{flex:1}}>
-        <View style={{marginTop:20,flex:1}}>
-          <FlatList
-            style={styles.list}
+        <View style={styles.container}>
+            <View style={styles.FlatList}>
+            <FlatList
             data={this.state.tasks}
             renderItem={({ item, index }) =>
-              <View>
-                <View style={styles.listItemCont}>
-                  <Text style={styles.listItem} onPress={()=>this.props.navigation.navigate('Detail', {...item})}>
-                    {item.text}
-                  </Text>
-                  <Button title="X" onPress={() => this.deleteTask(index)} />
-                </View>
-                <View style={styles.hr} />
-              </View>}
-            />
-        </View>
-        <View style={styles.Button}>
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate('Create')}>
-        <View>  
-            <Entypo name="squared-plus" size={70} color="green" />
-        </View>            
-        </TouchableOpacity>
-        </View>
+            <View style={styles.FlatListInLine}>
+              <Text style={styles.text} onPress={()=>this.props.navigation.navigate('Detail', {...item})}>
+              {item.text}
+              </Text>
+              <TouchableOpacity onPress={() => this.deleteTask(index)}>
+                <MaterialCommunityIcons name="delete-forever" size ={30} color="red"/>
+              </TouchableOpacity>
+              </View>}/>
+            </View>
+          <View style={styles.Icon}>
+              <TouchableOpacity onPress={()=>this.props.navigation.navigate('Create')}> 
+              <Entypo name="squared-plus" size={70} color="green" />          
+              </TouchableOpacity>
+          </View>
         </View>
       );
     }
@@ -109,42 +104,36 @@ export default class TodoList extends Component {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
       backgroundColor: "#F5FCFF",
       padding: viewPadding,
-      paddingTop: 20
+      paddingTop: 20,
     },
-    list: {
-      width: "100%"
+    FlatList:{
+      flex:1,
+      marginLeft:10,
+      marginTop:10,
+      marginRight:10,
     },
-    listItem: {
-      paddingTop: 2,
-      paddingBottom: 2,
-      fontSize: 18
+    FlatListInLine:{
+        flex:2,
+        marginLeft:20,
+        flexWrap:'wrap',
+        flexDirection:'row',
+        justifyContent:'space-between',
+        borderWidth:1,
+        borderColor:'#C0C0C0',
+        
     },
-    hr: {
-      height: 1,
-      backgroundColor: "gray"
-    },
-    listItemCont: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between"
-    },
-    textInput: {
-      height: 40,
-      paddingRight: 10,
-      paddingLeft: 10,
-      borderColor: "gray",
-      borderWidth: isAndroid ? 0 : 1,
-      width: "100%"
-    },
-    Button:{
+    Icon:{
       flex:0,
-      marginLeft:20,
       flexDirection:'row-reverse',
-      alignSelf:'flex-end'
+      marginLeft:30,
+      marginBottom:40
+    },
+    text:{
+      flex:1,
+      fontSize:20,
+      marginTop:5,
     }
   });
   
