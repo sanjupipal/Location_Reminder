@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
+import { Feather,AntDesign } from '@expo/vector-icons';
 // import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
 
@@ -115,23 +116,22 @@ export default class CreateTask extends Component {
   
   render() {
     return (
-      <View>
+      <View >
           <TextInput style={styles.textInput}
             onChangeText={this.changeTextHandler}
-            // onSubmitEditing={this.addTask}
             value={this.state.text}
             placeholder="Remind me about"
             returnKeyType="done"
-            returnKeyLabel="done"
-          />
-          <Text style={{fontSize:29,paddingLeft:20,fontStyle:'italic'}}>Schedule</Text>
-          <View style={{paddingTop:10}}>
-            <Text style={styles.inlineText} onPress={this.showDatepicker}>{this.state.schedule.date}</Text>
-            <Text style={styles.inlineText} onPress={()=>this.showTimepicker('start')}>{this.state.schedule.startTime}</Text>
-            <Text style={styles.inlineText} onPress={()=>this.showTimepicker('end')}>{this.state.schedule.endTime}</Text>
-          </View>
+            returnKeyLabel="done"/>
+          <Text style={styles.schedule}>Schedule</Text>          
+          <Feather name='calendar' size={40} color='#979A9A' />          
+          <Text style={styles.date} onPress={this.showDatepicker}>{this.state.schedule.date}</Text>
+          <AntDesign name='clockcircleo' size={40} color='#979A9A' />  
+          <Text style={styles.date} onPress={()=>this.showTimepicker('start')}>{this.state.schedule.startTime}</Text>
+          <AntDesign name='clockcircle' size={40} color='#979A9A' />  
+          <Text style={styles.date} onPress={()=>this.showTimepicker('end')}>{this.state.schedule.endTime}</Text>
+          
           <View style={styles.Button}>
-           
             <Button  title="Cancel" onPress={()=> this.props.navigation.navigate('Tasks')} />
             <Button  title="Submit" onPress={this.addTask} />
             {this.state.show && (
@@ -178,47 +178,25 @@ export default class CreateTask extends Component {
   };
 
   const styles = StyleSheet.create({
-    container: {
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "#F5FCFF",
-      padding: viewPadding,
-      paddingTop: 20
-    },
-    list: {
-      width: "100%"
-    },
-    listItem: {
-      paddingTop: 2,
-      paddingBottom: 2,
-      fontSize: 18
-    },
-    hr: {
-      height: 1,
-      backgroundColor: "gray"
-    },
-    listItemCont: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between"
-    },
     textInput: {
-      marginTop:50,
-      height: 70,
+      flex:0,
+      marginTop:0,
+      height: 80,
       paddingRight: 10,
-      paddingLeft: 20,
-      borderColor: "gray",
+      paddingLeft: 10,
       borderWidth: isAndroid ? 0 : 1,
       width: "100%",
-      fontSize:18,
+      fontSize:22,
+      borderBottomWidth:1,
+      borderColor:'silver'
     },
     inlineText: {
         fontSize:20,
         fontWeight: "bold",
         paddingRight: 0,
         paddingLeft:30,
-        paddingTop:20,
-        borderColor: "gray",
+        paddingTop:10,
+        borderColor: "silver",
         borderWidth: isAndroid ? 0 : 1,
       },
       Button:{
@@ -227,8 +205,17 @@ export default class CreateTask extends Component {
         paddingRight:90,
         justifyContent:'space-between',
         flexWrap:'wrap',
-        flexDirection:'row',
-        
+        flexDirection:'row',        
+      },
+      schedule:{
+        paddingTop:10,
+        fontSize:29,
+        paddingLeft:10,
+        fontStyle:'italic',
+        marginBottom:15
+      },
+      date:{
+        fontSize:22 , marginLeft:50, fontStyle:'italic',borderBottomColor:"silver", borderBottomWidth:1,flex:0,marginTop:15,marginBottom:10
       }
   });
   

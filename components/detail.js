@@ -58,12 +58,15 @@ const styles = StyleSheet.create({
         flexDirection:'column',
     },
     text:{
-        flex:3,
+        flex:1,
         fontSize:25
     },
     inlineText:{
-        flex:1,
-        fontSize:25
+        flex:0,
+        fontSize:25,
+        borderBottomWidth:1,
+        marginBottom:60
+
     }
     
 });

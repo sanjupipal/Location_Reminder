@@ -70,13 +70,13 @@ export default class TodoList extends Component {
               {item.text}
               </Text>
               <TouchableOpacity onPress={() => this.deleteTask(index)}>
-                <MaterialCommunityIcons name="delete-forever" size ={30} color="red"/>
+                <MaterialCommunityIcons name="delete-forever" size ={30} color="#CB4335 "/>
               </TouchableOpacity>
               </View>}/>
             </View>
           <View style={styles.Icon}>
               <TouchableOpacity onPress={()=>this.props.navigation.navigate('Create')}> 
-              <Entypo name="squared-plus" size={70} color="green" />          
+              <Entypo name="squared-plus" size={70} color="#229954" />          
               </TouchableOpacity>
           </View>
         </View>
@@ -123,12 +123,12 @@ export default class TodoList extends Component {
     },
     FlatListInLine:{
         flex:2,
-        marginLeft:20,
+        marginLeft:10,
         flexWrap:'wrap',
         flexDirection:'row',
         justifyContent:'space-between',
-        borderWidth:1,
-        borderColor:'#C0C0C0',
+        borderBottomWidth:1,
+        borderColor:'silver'
         
     },
     Icon:{
