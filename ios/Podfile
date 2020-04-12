@@ -43,4 +43,6 @@ target 'rn' do
 
   # react-native-cli autolinking
   use_native_modules!
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+
 end

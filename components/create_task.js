@@ -35,8 +35,8 @@ export default class CreateTask extends Component {
       timePicker: null,
       schedule: {date: moment(new Date()).format('YYYY-MM-DD'),
       startTime: moment().format('HH:mm'),
-      endTime: moment().format('HH:mm')}
-
+      endTime: moment().format('HH:mm')},
+      location: {}
     };
     
     onChange = (event, selectedDate) => {
@@ -74,7 +74,7 @@ export default class CreateTask extends Component {
       if (notEmpty) {
         const tasks = this.state.tasks;
         tasks.push({
-          key: this.state.tasks.length, text: this.state.text, schedule: this.state.schedule
+          key: this.state.tasks.length, text: this.state.text, schedule: this.state.schedule, location: this.state.location
         });  
         this.setState({tasks});
         Tasks.save(this.state.tasks);
@@ -111,6 +111,10 @@ export default class CreateTask extends Component {
   
       this.props.navigation.addListener('focus', () => {
         Tasks.all(tasks => this.setState({ tasks: tasks || [] }));
+        const params = this.props.route.params;
+        console.log('create params', params);
+        if(params)
+          this.setState({location: params.location});
       });
     }
   
@@ -123,6 +127,8 @@ export default class CreateTask extends Component {
             placeholder="Remind me about"
             returnKeyType="done"
             returnKeyLabel="done"/>
+          <Text style={styles.schedule} onPress={()=> this.props.navigation.navigate('PlaceAuto')}>Location</Text>          
+          <Text style={styles.schedule}>{this.state.location.name}</Text>          
           <Text style={styles.schedule}>Schedule</Text>          
           <Feather name='calendar' size={40} color='#979A9A' />          
           <Text style={styles.date} onPress={this.showDatepicker}>{this.state.schedule.date}</Text>
@@ -191,7 +197,7 @@ export default class CreateTask extends Component {
       borderColor:'silver'
     },
     inlineText: {
-        fontSize:20,
+        fontSize:16,
         fontWeight: "bold",
         paddingRight: 0,
         paddingLeft:30,
@@ -200,7 +206,7 @@ export default class CreateTask extends Component {
         borderWidth: isAndroid ? 0 : 1,
       },
       Button:{
-        paddingTop:240,
+        paddingTop:100,
         paddingLeft:90,
         paddingRight:90,
         justifyContent:'space-between',
@@ -209,7 +215,7 @@ export default class CreateTask extends Component {
       },
       schedule:{
         paddingTop:10,
-        fontSize:29,
+        fontSize:16,
         paddingLeft:10,
         fontStyle:'italic',
         marginBottom:15

@@ -26,7 +26,6 @@ export default class Detail extends Component {
         const params = this.props.route.params;
         console.log('detail picked: ', params);
         this.setState({...params});  
-    
     }
   
     render() {

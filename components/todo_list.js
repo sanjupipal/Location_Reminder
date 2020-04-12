@@ -8,20 +8,20 @@ import {
     Button,
     TextInput,
     Keyboard,
-    Platform,TouchableOpacity,
-    PermissionsAndroid
+    Platform,TouchableOpacity
 } from "react-native";
 import { Entypo,MaterialCommunityIcons } from '@expo/vector-icons';
 import PushNotification from 'react-native-push-notification';
-import RNLocation from 'react-native-location';
 
-  const isAndroid = Platform.OS == "android";
-  const viewPadding = 10;
+const isAndroid = Platform.OS == "android";
+const viewPadding = 10;
 export default class TodoList extends Component {
     state = {
       tasks: [],
-      latitude: null,
-      longitude: null
+      cords: {
+        latitude: 37.78825,
+        longitude: -122.4324,
+      }
     };
   
     
@@ -37,22 +37,6 @@ export default class TodoList extends Component {
         () => Tasks.save(this.state.tasks)
       );
     };
-    configureLocation = async() =>{
-      // RNLocation.configure({
-      //   distanceFilter: 5.0
-      // })
-       
-      const granted = await RNLocation.requestPermission({
-        android: {
-          detail: "fine"
-        }
-      });
-      if (granted) {
-        this.locationSubscription = RNLocation.subscribeToLocationUpdates(locations => {
-          this.setState({latitude: locations[0].latitude, longitude: locations[0].longitude});
-        });
-      }
-    }
     componentDidMount() {
       
       PushNotification.configure({
@@ -74,8 +58,6 @@ export default class TodoList extends Component {
       this.props.navigation.addListener('focus', () => {
         Tasks.all(tasks => this.setState({ tasks: tasks || [] }));
       });
-
-      this.configureLocation();
     }
   
     onCreate = () => {
@@ -101,10 +83,6 @@ export default class TodoList extends Component {
               <TouchableOpacity onPress={()=>this.props.navigation.navigate('Create')}> 
               <Entypo name="squared-plus" size={70} color="#229954" />          
               </TouchableOpacity>
-          </View>
-          <View>
-            <Text>{this.state.latitude}</Text>
-            <Text>{this.state.longitude}</Text>
           </View>
         </View>
       );
@@ -136,6 +114,10 @@ export default class TodoList extends Component {
   };
 
   const styles = StyleSheet.create({
+    mapContainer: {
+      height: '100%',
+      width: '100%'
+    },
     container: {
       flex: 1,
       backgroundColor: "#F5FCFF",

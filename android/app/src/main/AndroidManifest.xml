@@ -40,7 +40,7 @@
       android:theme="@style/AppTheme">
       <meta-data
      android:name="com.google.android.geo.API_KEY"
-     android:value="AIzaSyCeAW4UB-D1uMqYn2cK8vl4ge-E-IgBk2s"/>
+     android:value="AIzaSyDju_m5TT9dezjmt8l78QFAE3sAygPJNkM"/>
 
      <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_name"
         android:value="channel"/>

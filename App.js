@@ -4,6 +4,8 @@ import {StyleSheet, Button, Text , View, FlatList,Alert,TouchableWithoutFeedback
 import TodoList from './components/todo_list';
 import CreateTask from './components/create_task';
 import Detail from './components/detail';
+import PlaceAutoComplete from './components/placeAutoComplete';
+
 import {NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -28,6 +30,7 @@ export default function App(){
         <Stack.Screen name="Tasks" component={TodoList} />
         <Stack.Screen name="Create" component={CreateTask} />
         <Stack.Screen name="Detail" component={Detail} />
+        <Stack.Screen name="PlaceAuto" component={PlaceAutoComplete} />
       </Stack.Navigator>
     </NavigationContainer>
     );
