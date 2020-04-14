@@ -9,12 +9,14 @@ import {
     TextInput,
     Keyboard,
     Platform,
+    ImageBackground,
 } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import { Feather,AntDesign } from '@expo/vector-icons';
 // import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
+import Card from './Shared/Card';
 
 const isAndroid = Platform.OS == "android";
 const viewPadding = 360;
@@ -64,6 +66,7 @@ export default class CreateTask extends Component {
     showTimepicker = timePicker => {
         this.setState({timePicker: timePicker, show: true, mode: 'time'});
     };
+
     changeTextHandler = text => {
       this.setState({ text: text });
     };
@@ -97,6 +100,7 @@ export default class CreateTask extends Component {
     cancel = () => {
 
     }
+
     componentDidMount() {
       console.log('mounting');
       Keyboard.addListener(
@@ -121,20 +125,33 @@ export default class CreateTask extends Component {
   render() {
     return (
       <View >
-          <TextInput style={styles.textInput}
+        
+          <TextInput 
+            multiline
+            style={styles.textInput}
             onChangeText={this.changeTextHandler}
             value={this.state.text}
             placeholder="Remind me about"
             returnKeyType="done"
             returnKeyLabel="done"/>
-          <Text style={styles.schedule} onPress={()=> this.props.navigation.navigate('PlaceAuto')}>Location</Text>          
-          <Text style={styles.schedule}>{this.state.location.name}</Text>          
-          <Text style={styles.schedule}>Schedule</Text>          
-          <Feather name='calendar' size={40} color='#979A9A' />          
+          
+          <Text style={styles.schedule}>Location</Text>
+          
+          <ImageBackground source={require('/home/sanju/Location_Reminder/components/Shared/Map.jpeg')}style={styles.map}>
+          <Text style={styles.MapButton} onPress={()=> this.props.navigation.navigate('PlaceAuto')}></Text> 
+          </ImageBackground>         
+          
+          <Text style={styles.schedule}>{this.state.location.name}</Text> 
+
+          <Text style={styles.schedule}>Schedule</Text>  
+
+          <Feather name='calendar' size={40} color='#839192' />          
           <Text style={styles.date} onPress={this.showDatepicker}>{this.state.schedule.date}</Text>
-          <AntDesign name='clockcircleo' size={40} color='#979A9A' />  
+
+          <AntDesign name='clockcircleo' size={40} color='#52BE80' />  
           <Text style={styles.date} onPress={()=>this.showTimepicker('start')}>{this.state.schedule.startTime}</Text>
-          <AntDesign name='clockcircle' size={40} color='#979A9A' />  
+
+          <AntDesign name='clockcircle' size={40} color='#EC7063' />  
           <Text style={styles.date} onPress={()=>this.showTimepicker('end')}>{this.state.schedule.endTime}</Text>
           
           <View style={styles.Button}>
@@ -185,16 +202,19 @@ export default class CreateTask extends Component {
 
   const styles = StyleSheet.create({
     textInput: {
-      flex:0,
-      marginTop:0,
-      height: 80,
+      marginTop:10,
+      height: 50,
       paddingRight: 10,
       paddingLeft: 10,
       borderWidth: isAndroid ? 0 : 1,
       width: "100%",
       fontSize:22,
       borderBottomWidth:1,
-      borderColor:'silver'
+      borderColor:'silver',
+      backgroundColor:'#fff',
+      shadowOffset:{width:1,height:1},
+      shadowColor:0.3,
+      shadowRadius:2,
     },
     inlineText: {
         fontSize:16,
@@ -204,9 +224,13 @@ export default class CreateTask extends Component {
         paddingTop:10,
         borderColor: "silver",
         borderWidth: isAndroid ? 0 : 1,
+        backgroundColor:'#fff',
+        shadowOffset:{width:1,height:1},
+        shadowColor:0.3,
+        shadowRadius:2,
       },
       Button:{
-        paddingTop:100,
+        paddingTop:60,
         paddingLeft:90,
         paddingRight:90,
         justifyContent:'space-between',
@@ -215,13 +239,28 @@ export default class CreateTask extends Component {
       },
       schedule:{
         paddingTop:10,
-        fontSize:16,
+        fontSize:20,
         paddingLeft:10,
         fontStyle:'italic',
-        marginBottom:15
+        marginBottom:15,
       },
       date:{
-        fontSize:22 , marginLeft:50, fontStyle:'italic',borderBottomColor:"silver", borderBottomWidth:1,flex:0,marginTop:15,marginBottom:10
+        fontSize:22 , marginLeft:50, fontStyle:'italic',borderBottomColor:"silver", borderBottomWidth:1,flex:0,marginTop:15,marginBottom:10,
+        backgroundColor:'#fff',
+        shadowOffset:{width:1,height:1},
+        shadowColor:0.3,
+        shadowRadius:2,
+      },
+      map:{ 
+        marginLeft:20,
+        padding:20,
+        width:"100%",
+        height:100,
+      },
+      MapButton:{
+        width:'100%',
+        height:'100%',
+        alignSelf:'center'
       }
   });
   

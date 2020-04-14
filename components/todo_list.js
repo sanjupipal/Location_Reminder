@@ -67,17 +67,21 @@ export default class TodoList extends Component {
       return (
         <View style={styles.container}>
             <View style={styles.FlatList}>
+      
             <FlatList
+            
             data={this.state.tasks}
             renderItem={({ item, index }) =>
-            <View style={styles.FlatListInLine}>
-              <Text style={styles.text} onPress={()=>this.props.navigation.navigate('Detail', {...item})}>
-              {item.text}
-              </Text>
-              <TouchableOpacity onPress={() => this.deleteTask(index)}>
-                <MaterialCommunityIcons name="delete-forever" size ={30} color="#CB4335 "/>
-              </TouchableOpacity>
-              </View>}/>
+            <View style={styles.FlatListInLine}>           
+            <Text style={styles.text} onPress={()=>this.props.navigation.navigate('Detail', {...item})}>
+            {item.text}
+            </Text>
+            <MaterialCommunityIcons onPress={() => this.deleteTask(index)}
+            name="delete-forever" size ={30} color="#CB4335 "/>              
+             </View>}
+             
+             />
+
             </View>
           <View style={styles.Icon}>
               <TouchableOpacity onPress={()=>this.props.navigation.navigate('Create')}> 
@@ -137,19 +141,28 @@ export default class TodoList extends Component {
         flexDirection:'row',
         justifyContent:'space-between',
         borderBottomWidth:1,
-        borderColor:'silver'
+        borderColor:'silver',
+        borderRadius:6,
+        elevation:3,
+        backgroundColor:'#fff',
+        shadowOffset:{width:1,height:1},
+        shadowColor:0.3,
+        shadowRadius:2,
+        marginHorizontal:4,
+        marginVertical:6,
         
     },
     Icon:{
       flex:0,
       flexDirection:'row-reverse',
       marginLeft:30,
-      marginBottom:40
+      marginBottom:40,
     },
     text:{
       flex:1,
       fontSize:20,
       marginTop:5,
+      
     }
   });
   

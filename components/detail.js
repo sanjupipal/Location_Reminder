@@ -8,7 +8,8 @@ import {
     Button,
     TextInput,
     Keyboard,
-    Platform
+    Platform,
+    ImageBackground
 } from "react-native";
 import {MaterialIcons } from '@expo/vector-icons';
 
@@ -18,7 +19,8 @@ const viewPadding = 80;
 export default class Detail extends Component {
     state = {
         text: null,
-        schedule: {}
+        schedule: {},
+        location: {}
     };
     
     componentDidMount() {
@@ -43,6 +45,9 @@ export default class Detail extends Component {
             <Text style={styles.inlineText} >
             <MaterialIcons name="update" size={60} /> {this.state.schedule.endTime}
                 </Text>
+                <Text style={styles.inlineText} >
+                <MaterialIcons name="location-on" size={60} /> {this.state.location.name}
+                </Text>
         </View>
       );
     }
@@ -51,20 +56,30 @@ export default class Detail extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#F5FCFF",
+        backgroundColor: "#F0F3F4",
         padding: viewPadding,
         paddingTop: 20,
         flexDirection:'column',
     },
     text:{
         flex:1,
-        fontSize:25
+        fontSize:25,
+        
     },
     inlineText:{
-        flex:0,
+        flex:1,
+        fontStyle:'italic',
         fontSize:25,
-        borderBottomWidth:1,
-        marginBottom:60
+        // borderBottomWidth:1,
+        // marginBottom:60,
+        borderRadius:6,
+        elevation:3,
+        backgroundColor:'#fff',
+        shadowOffset:{width:1,height:1},
+        shadowColor:0.3,
+        shadowRadius:2,
+        marginHorizontal:4,
+        marginVertical:6,
 
     }
     
