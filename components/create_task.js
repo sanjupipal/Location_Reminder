@@ -127,7 +127,6 @@ export default class CreateTask extends Component {
       <View >
         
           <TextInput 
-            multiline
             style={styles.textInput}
             onChangeText={this.changeTextHandler}
             value={this.state.text}
@@ -137,7 +136,7 @@ export default class CreateTask extends Component {
           
           <Text style={styles.schedule}>Location</Text>
           
-          <ImageBackground source={require('/home/sanju/Location_Reminder/components/Shared/Map.jpeg')}style={styles.map}>
+          <ImageBackground source={require('./Shared/Map.jpeg')}style={styles.map}>
           <Text style={styles.MapButton} onPress={()=> this.props.navigation.navigate('PlaceAuto')}></Text> 
           </ImageBackground>         
           

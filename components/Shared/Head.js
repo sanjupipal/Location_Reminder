@@ -3,7 +3,7 @@ import {StyleSheet , Text,View,Image, ImageBackground} from 'react-native';
 
 export default function Header(){
     return(
-        <ImageBackground source={require('/home/sanju/Location_Reminder/components/Shared/logo.jpeg')} style ={styles.head}>
+        <ImageBackground source={require('./logo.jpeg')} style ={styles.head}>
 
             <View >            
             </View>
